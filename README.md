@@ -1,3 +1,6 @@
+NAME:SANTHOSH SIVAKUMAR
+
+REG NO:212225040382
 # VIGENERE-CIPHER
 ## EX. NO: 4
  
@@ -30,7 +33,89 @@ STEP-8: Repeat the above steps to generate the entire cipher text.
 
 
 ## PROGRAM
+```
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+// Function to perform Vigenere encryption
+void vigenereEncrypt(char *text, const char *key) {
+    int textLen = strlen(text);
+    int keyLen = strlen(key);
+    int keyIndex = 0;
+
+    for (int i = 0; i < textLen; i++) {
+        char c = text[i];
+        if (c >= 'A' && c <= 'Z') {
+            char k = toupper(key[keyIndex % keyLen]);
+            text[i] = ((c - 'A' + (k - 'A')) % 26) + 'A';
+            keyIndex++;
+        } else if (c >= 'a' && c <= 'z') {
+            char k = tolower(key[keyIndex % keyLen]);
+            text[i] = ((c - 'a' + (k - 'a')) % 26) + 'a';
+            keyIndex++;
+        }
+    }
+}
+
+// Function to perform Vigenere decryption
+void vigenereDecrypt(char *text, const char *key) {
+    int textLen = strlen(text);
+    int keyLen = strlen(key);
+    int keyIndex = 0;
+
+    for (int i = 0; i < textLen; i++) {
+        char c = text[i];
+        if (c >= 'A' && c <= 'Z') {
+            char k = toupper(key[keyIndex % keyLen]);
+            text[i] = ((c - 'A' - (k - 'A') + 26) % 26) + 'A';
+            keyIndex++;
+        } else if (c >= 'a' && c <= 'z') {
+            char k = tolower(key[keyIndex % keyLen]);
+            text[i] = ((c - 'a' - (k - 'a') + 26) % 26) + 'a';
+            keyIndex++;
+        }
+    }
+}
+
+int main() {
+    char message[1000];
+    char key[100];
+
+    printf("Simulating Vigenere Cipher\n");
+    printf("Enter the message to encrypt: ");
+    if (fgets(message, sizeof(message), stdin) != NULL) {
+        size_t len = strlen(message);
+        if (len > 0 && message[len - 1] == '\n') {
+            message[len - 1] = '\0';
+        }
+    }
+
+    printf("Enter the keyword: ");
+    if (scanf("%99s", key) != 1) {
+        return 1;
+    }
+
+    printf("\nInput Message : %s\n", message);
+
+    // Encrypt the message
+    vigenereEncrypt(message, key);
+    printf("Encrypted Message : %s\n", message);
+
+    // Decrypt the message back to the original
+    vigenereDecrypt(message, key);
+    printf("Decrypted Message : %s\n", message);
+
+    return 0;
+}
+```
 
 ## OUTPUT
 
+<img width="1560" height="797" alt="image" src="https://github.com/user-attachments/assets/4cf60ae5-07e3-40b3-aab7-60b334fce9a2" />
+
 ## RESULT
+
+The program is executed successfully and verified with sample test inputs.
+
+
